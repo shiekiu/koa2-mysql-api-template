@@ -43,15 +43,15 @@ class UserModel {
    * @returns {Promise.<'id', 'user_name','password','nickname'>}
    */
   static async getUserById (id) {
-    const userList = await User.findOne({
+    const user = await User.findOne({
       where: { id: id, is_delete: 0 },
       attributes: ['id', 'user_name','nickname']
     })
-    return userList
+    return user
   }
   /**
    * 更新用户
-   * @param id 序号
+   * @param {id,name,password,nickname}
    * @returns {Promise.<boolean>}
    */
   static async updateUser (id,name,password,nickname) {

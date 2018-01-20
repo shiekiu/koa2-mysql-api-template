@@ -49,10 +49,10 @@ module.exports = {
         }
     },
     'PUT /api/user': async (ctx, next) => {
-        const data = ctx.request.body
-        if (data) {
-            data.password = bcrypt.hashSync(data.password, bcrypt.genSaltSync())
-            await userModel.updateUser(data.id,data.name,data.password,data.nickname)
+        const user = ctx.request.body
+        if ((user.id && !isNaN(user.id)) && (user.name) && (user.password) && (user.nickname)) {
+            user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync())
+            await userModel.updateUser(user.id,user.name,user.password,user.nickname)
             ctx.rest({ statuscode: 200, message: "更新成功"})
         }
         else {
